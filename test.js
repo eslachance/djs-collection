@@ -1,7 +1,7 @@
 const Collection = require("./index");
 const myColl = new Collection();
 
-for(let i; i<100;i++) {
+for(let i = 0; i<100;i++) {
   myColl.set(`test${i}`, {testValue: "This is a test Value"});
 }
 
