@@ -1,0 +1,25 @@
+{
+  "name": "djs-collection",
+  "version": "0.0.1",
+  "description": "Collections extend Map() and offer helper methods from Array.prototype",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "Evelyne Lachance",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eslachance/djs-collection.git"
+  },
+  "keywords": [
+    "node",
+    "nodejs",
+    "javascript",
+    "helpers"
+  ],
+  "bugs": {
+    "url": "https://github.com/eslachance/djs-collection/issues"
+  },
+  "homepage": "https://github.com/eslachance/djs-collection#readme"
+}
