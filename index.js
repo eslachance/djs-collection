@@ -99,6 +99,27 @@ class Collection extends Map {
   }
 
   /**
+   * Obtains the last item in this collection. This relies on the `array()` method, and thus the caching mechanism
+   * applies here as well.
+   * @returns {*}
+   */
+  secondLast() {
+    const arr = this.array();
+    return arr[arr.length - 2];
+  }
+
+  /**
+   * Obtains the last key in this collection. This relies on the `keyArray()` method, and thus the caching mechanism
+   * applies here as well.
+   * @returns {*}
+   */
+  secondLastKey() {
+    const arr = this.keyArray();
+    return arr[arr.length - 2];
+  }
+
+
+  /**
    * Obtains a random item from this collection. This relies on the `array()` method, and thus the caching mechanism
    * applies here as well.
    * @returns {*}
