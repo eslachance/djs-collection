@@ -63,111 +63,99 @@ class Collection extends Map {
   }
 
   /**
-   * Obtains the first item in this collection.
-   * @param {number} [count] Number of values to return. If omited, returns a single values.
-   * If present, returns an array of values.
-   * @returns {*|Array}
+   * Obtains the first value(s) in this collection.
+   * @param {number} [count] Number of values to obtain from the beginning
+   * @returns {*|Array<*>} The single value if `count` is undefined, or an array of values of `count` length
    */
   first(count) {
-    if (!count) return this.values().next().value;
-    if (!Number.isInteger(count)) throw new TypeError('Count must be an integer');
-    const values = this.values();
-    const retArr = [];
-    for (let i = 0; i < count; i++) {
-      retArr[i] = values.next().value;
-    }
-    return retArr;
+    if (count === undefined) return this.values().next().value;
+    if (typeof count !== 'number') throw new TypeError('The count must be a number.');
+    if (!Number.isInteger(count) || count < 1) throw new RangeError('The count must be an integer greater than 0.');
+    count = Math.min(this.size, count);
+    const arr = new Array(count);
+    const iter = this.values();
+    for (let i = 0; i < count; i++) arr[i] = iter.next().value;
+    return arr;
   }
 
   /**
-   * Obtains the first key in this collection.
-   * @param {number} [count] Number of keys to return. If omited, returns a single key.
-   * If present, returns an array of keys.
-   * @returns {*|Array}
+   * Obtains the first key(s) in this collection.
+   * @param {number} [count] Number of keys to obtain from the beginning
+   * @returns {*|Array<*>} The single key if `count` is undefined, or an array of keys of `count` length
    */
   firstKey(count) {
-    if (!count) return this.keys().next().value;
-    if (!Number.isInteger(count)) throw new TypeError('Count must be an integer');
-    const keys = this.keys();
-    const retArr = [];
-    for (let i = 0; i < count; i++) {
-      retArr[i] = keys.next().value;
-    }
-    return retArr;
+    if (count === undefined) return this.keys().next().value;
+    if (typeof count !== 'number') throw new TypeError('The count must be a number.');
+    if (!Number.isInteger(count) || count < 1) throw new RangeError('The count must be an integer greater than 0.');
+    count = Math.min(this.size, count);
+    const arr = new Array(count);
+    const iter = this.iter();
+    for (let i = 0; i < count; i++) arr[i] = iter.next().value;
+    return arr;
   }
 
   /**
-   * Obtains the last item in this collection. This relies on the `array()` method, and thus the caching mechanism
-   * applies here as well.
-   * @param {number} [count] Number of values to return. If omited, returns a single values.
-   * If present, returns an array of values.
-   * @returns {*|Array}
+   * Obtains the last value(s) in this collection. This relies on {@link Collection#array}, and thus the caching
+   * mechanism applies here as well.
+   * @param {number} [count] Number of values to obtain from the end
+   * @returns {*|Array<*>} The single value if `count` is undefined, or an array of values of `count` length
    */
   last(count) {
     const arr = this.array();
-    if (!count) return arr[arr.length - 1];
-    if (!Number.isInteger(count)) throw new TypeError('Count must be an integer');
-    const retArr = [];
-    const arrLen = arr.length;
-    for (let i = 0; i < count; i++) {
-      retArr[i] = arr[arrLen - (i + 1)];
-    }
-    return retArr;
+    if (count === undefined) return arr[arr.length - 1];
+    if (typeof count !== 'number') throw new TypeError('The count must be a number.');
+    if (!Number.isInteger(count) || count < 1) throw new RangeError('The count must be an integer greater than 0.');
+    return arr.slice(-count);
   }
 
   /**
-   * Obtains the last key in this collection. This relies on the `keyArray()` method, and thus the caching mechanism
-   * applies here as well.
-   * @param {number} [count] Number of keys to return. If omited, returns a single key.
-   * If present, returns an array of keys.
-   * @returns {*|Array}
+   * Obtains the last key(s) in this collection. This relies on {@link Collection#keyArray}, and thus the caching
+   * mechanism applies here as well.
+   * @param {number} [count] Number of keys to obtain from the end
+   * @returns {*|Array<*>} The single key if `count` is undefined, or an array of keys of `count` length
    */
   lastKey(count) {
     const arr = this.keyArray();
-    if (!count) return arr[arr.length - 1];
-    if (!Number.isInteger(count)) throw new TypeError('Count must be an integer');
-    const retArr = [];
-    const arrLen = arr.length;
-    for (let i = 0; i < count; i++) {
-      retArr[i] = arr[arrLen - (i + 1)];
-    }
-    return retArr;
+    if (count === undefined) return arr[arr.length - 1];
+    if (typeof count !== 'number') throw new TypeError('The count must be a number.');
+    if (!Number.isInteger(count) || count < 1) throw new RangeError('The count must be an integer greater than 0.');
+    return arr.slice(-count);
   }
 
   /**
-   * Obtains a random item from this collection. This relies on the `array()` method, and thus the caching mechanism
-   * applies here as well.
-   * @param {number} [count] Number of values to return. If omited, returns a single values.
-   * If present, returns an array of values.
-   * @returns {*|Array}
+   * Obtains random value(s) from this collection. This relies on {@link Collection#array}, and thus the caching
+   * mechanism applies here as well.
+   * @param {number} [count] Number of values to obtain randomly
+   * @returns {*|Array<*>} The single value if `count` is undefined, or an array of values of `count` length
    */
   random(count) {
-    const arr = this.array();
-    if (!count) return arr[Math.floor(Math.random() * arr.length)];
-    if (!Number.isInteger(count)) throw new TypeError('Count must be an integer');
-    const retArr = [];
-    for (let i = 0; i < count; i++) {
-      retArr[i] = arr[Math.floor(Math.random() * arr.length)];
-    }
-    return retArr;
+    let arr = this.array();
+    if (count === undefined) return arr[Math.floor(Math.random() * arr.length)];
+    if (typeof count !== 'number') throw new TypeError('The count must be a number.');
+    if (!Number.isInteger(count) || count < 1) throw new RangeError('The count must be an integer greater than 0.');
+    if (arr.length === 0) return [];
+    const rand = new Array(count);
+    arr = arr.slice();
+    for (let i = 0; i < count; i++) rand[i] = arr.splice(Math.floor(Math.random() * arr.length), 1)[0];
+    return rand;
   }
 
   /**
-   * Obtains a random key from this collection. This relies on the `keyArray()` method, and thus the caching mechanism
-   * applies here as well.
-   * @param {number} [count] Number of keys to return. If omited, returns a single key.
-   * If present, returns an array of keys.
-   * @returns {*|Array}
+   * Obtains random key(s) from this collection. This relies on {@link Collection#keyArray}, and thus the caching
+   * mechanism applies here as well.
+   * @param {number} [count] Number of keys to obtain randomly
+   * @returns {*|Array<*>} The single key if `count` is undefined, or an array of keys of `count` length
    */
   randomKey(count) {
-    const arr = this.keyArray();
-    if (!count) return arr[Math.floor(Math.random() * arr.length)];
-    if (!Number.isInteger(count)) throw new TypeError('Count must be an integer');
-    const retArr = [];
-    for (let i = 0; i < count; i++) {
-      retArr[i] = arr[Math.floor(Math.random() * arr.length)];
-    }
-    return retArr;
+    let arr = this.keyArray();
+    if (count === undefined) return arr[Math.floor(Math.random() * arr.length)];
+    if (typeof count !== 'number') throw new TypeError('The count must be a number.');
+    if (!Number.isInteger(count) || count < 1) throw new RangeError('The count must be an integer greater than 0.');
+    if (arr.length === 0) return [];
+    const rand = new Array(count);
+    arr = arr.slice();
+    for (let i = 0; i < count; i++) rand[i] = arr.splice(Math.floor(Math.random() * arr.length), 1)[0];
+    return rand;
   }
 
   /**
