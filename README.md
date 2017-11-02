@@ -1,31 +1,27 @@
 # djs-collection
-The "Collection" structure extracted from Discord.js. Collections extend Map() by adding helper methods generally found on Arrays.
 
-## Credits
+***__THIS REPOSITORY IS NOW OBSOLETE AND WILL NO LONGER BE UPDATED__***
 
-The original work on Collections is done by Amish Shah (hydrabolt) and the Discord.js contributor team. 
+## Moving to Enmap
 
-This module is distributed with permissions form the original author. I make no claim to this work, and only distribute it as a helper method for the rest of the world to enjoy.
+`djs-collection-persistent` and `djs-collection` have been merged into a more efficient system that's been renamed *Enmap*.
 
-## Documentation
+To get enmap, see [The NPMJS Page](https://www.npmjs.com/package/enmap). 
 
-Currently the documentation for this method can be found on [The Discord.js Official Documentation](https://discord.js.org/#/docs/main/stable/class/Collection)
-
-## Example Usage
+Updating requires no migration, only a change in code: 
 
 ```js
+// OLD CODE
+
 const Collection = require("djs-collection");
 const myColl = new Collection();
 
-for(let i; i<100;i++) {
-  myColl.set(`test${i}`, {testValue: "This is a test Value"});
-}
+// NEW CODE
 
-console.log(myColl.size);
-console.log(myColl.get("test55").testValue);
+const Enmap = require('enmap');
+const myColl = new Enmap();
 ```
 
 ## Support
 
-For support on this, or any of my repositories, join my Discord guild:
-[https://discord.gg/PhT8scR](https://discord.gg/PhT8scR)
+For support join [〈evie.codes〉](https://discord.gg/PhT8scR) and talk to me, 〈evie.codes〉!

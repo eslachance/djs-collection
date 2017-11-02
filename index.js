@@ -9,6 +9,7 @@
  */
 class Collection extends Map {
   constructor(iterable) {
+    console.log('DeprecationWarning: djs-collection-persistent is no longer maintained. Please migrate to enmap (available on npm).')
     super(iterable);
 
     /**
